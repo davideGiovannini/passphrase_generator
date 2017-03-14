@@ -12,6 +12,7 @@ Some examples of a generated passphrases with different wordlist:
 * aroma algorithm attach concrete freeway endpoint
 * chop bust fang shush drown cone
 * imaging vagrancy cesspool oncoming silicon excerpt
+
 ## Usage
 
     Usage:
@@ -25,3 +26,24 @@ Some examples of a generated passphrases with different wordlist:
       -w,--wordlist WORDLIST
                             Word list to use (one of [long, short, shortest]), default is long
       -n,--length LENGTH    Length of the passphrase, default is 6
+
+
+## Compiling
+
+Using [Cargo](http://doc.crates.io/)
+
+    cargo build --release
+
+This will generate the `passphrase_generator` executable inside the folder `target/release/`
+
+## Running from cargo
+It is also possible to directly run the program from *cargo* using the command `cargo run --release`, although any command line arguments must be passed after a `--`.
+
+Some examples:
+* `cargo run --release` generates a passphrase using the default options
+* `cargo run --release -- -n 8` generates a passphrase of length 8
+* `cargo run --release -- -w short -n 10` generates a passphrase of length 10 using the shorter wordlist
+
+
+
+
