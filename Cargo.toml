@@ -1,0 +1,8 @@
+[package]
+name = "passphrase_generator"
+version = "0.1.0"
+authors = ["Davide Giovannini <giovannini.davide90@gmail.com>"]
+
+[dependencies]
+rand = "0.3"
+argparse = "*"
