@@ -17,10 +17,10 @@ fn main() {
         ap.refer(&mut verbose).add_option(&["-v", "--verbose"], StoreTrue, "Be verbose");
         ap.refer(&mut word_list).add_option(&["-w", "--wordlist"],
                                             Store,
-                                            "Word list to use (one of [long, short, shortest])");
+                                            "Word list to use (one of [long, short, shortest]), default is long");
         ap.refer(&mut target_length).add_option(&["-n", "--length"],
                                             Store,
-                                            "Length of the passphrase");
+                                            "Length of the passphrase, default is 6");
         ap.parse_args_or_exit();
     }
 
