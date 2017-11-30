@@ -17,11 +17,11 @@ impl FromStr for WordList {
     type Err = String;
     fn from_str(input: &str) -> Result<WordList, String> {
         Ok(match input {
-               "long" => WordList::Long,
-               "shortest" => WordList::Short,
-               "short" => WordList::ShortWithLongerWords,
-               _ => return Err("".into()),
-           })
+            "long" => WordList::Long,
+            "shortest" => WordList::Short,
+            "short" => WordList::ShortWithLongerWords,
+            _ => return Err("".into()),
+        })
     }
 }
 

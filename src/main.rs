@@ -14,22 +14,32 @@ fn main() {
         // this block limits scope of borrows by ap.refer() method
         let mut ap = ArgumentParser::new();
         ap.set_description("Passphrase generator that uses a word list and dices.");
-        ap.refer(&mut verbose).add_option(&["-v", "--verbose"], StoreTrue, "Be verbose");
-        ap.refer(&mut word_list).add_option(&["-w", "--wordlist"],
-                                            Store,
-                                            "Word list to use (one of [long, short, shortest]), default is long");
-        ap.refer(&mut target_length).add_option(&["-n", "--length"],
-                                            Store,
-                                            "Length of the passphrase, default is 6");
+        ap.refer(&mut verbose).add_option(
+            &["-v", "--verbose"],
+            StoreTrue,
+            "Be verbose",
+        );
+        ap.refer(&mut word_list).add_option(
+            &["-w", "--wordlist"],
+            Store,
+            "Word list to use (one of [long, short, shortest]), default is long",
+        );
+        ap.refer(&mut target_length).add_option(
+            &["-n", "--length"],
+            Store,
+            "Length of the passphrase, default is 6",
+        );
         ap.parse_args_or_exit();
     }
 
     let (dices, word_list) = word_list.get();
 
     if verbose {
-        println!("Generating passphrase of length {} using {} dices...\n",
-                 target_length,
-                 dices);
+        println!(
+            "Generating passphrase of length {} using {} dices...\n",
+            target_length,
+            dices
+        );
     }
 
     let (passphrase, rolls_history) = generate(target_length, dices, &word_list);
@@ -44,10 +54,11 @@ fn main() {
 }
 
 
-fn generate(target_length: usize,
-            dices: usize,
-            word_list: &[(u32, &'static str)])
-            -> (Vec<&'static str>, Vec<u32>) {
+fn generate(
+    target_length: usize,
+    dices: usize,
+    word_list: &[(u32, &'static str)],
+) -> (Vec<&'static str>, Vec<u32>) {
     let mut os_rng =
         rand::os::OsRng::new().expect("Could not create secure random number generator");
 
@@ -85,7 +96,7 @@ fn key_from_dices(roll: Vec<u8>) -> u32 {
     let mut result = 0;
 
     for num in roll {
-        result += num as u32 * multiplier;
+        result += u32::from(num) * multiplier;
         multiplier /= 10;
     }
     result
