@@ -1,51 +1,48 @@
 extern crate rand;
-extern crate argparse;
+
+extern crate structopt;
+#[macro_use]
+extern crate structopt_derive;
+
 mod default_word_lists;
 
+use structopt::StructOpt;
 
-use argparse::{ArgumentParser, StoreTrue, Store};
+#[derive(StructOpt, Debug)]
+#[structopt()]
+struct Args {
+    /// Word list to use (one of [long, short, shortest])
+    #[structopt(short = "w", long = "wordlist", default_value = "long")]
+    wordlist: WordList,
+
+    /// Be Verbose.
+    #[structopt(short = "v", long = "verbose")]
+    verbose: bool,
+
+    /// Length of the passphrase
+    #[structopt(short = "n", long = "length", default_value = "6")]
+    length: usize,
+}
+
 use default_word_lists::WordList;
+
 fn main() {
+    let args = Args::from_args();
 
-    let mut verbose = false;
-    let mut word_list = WordList::Long;
-    let mut target_length = 6;
-    {
-        // this block limits scope of borrows by ap.refer() method
-        let mut ap = ArgumentParser::new();
-        ap.set_description("Passphrase generator that uses a word list and dices.");
-        ap.refer(&mut verbose).add_option(
-            &["-v", "--verbose"],
-            StoreTrue,
-            "Be verbose",
-        );
-        ap.refer(&mut word_list).add_option(
-            &["-w", "--wordlist"],
-            Store,
-            "Word list to use (one of [long, short, shortest]), default is long",
-        );
-        ap.refer(&mut target_length).add_option(
-            &["-n", "--length"],
-            Store,
-            "Length of the passphrase, default is 6",
-        );
-        ap.parse_args_or_exit();
-    }
+    let (dices, word_list) = args.wordlist.get();
 
-    let (dices, word_list) = word_list.get();
-
-    if verbose {
+    if args.verbose {
         println!(
             "Generating passphrase of length {} using {} dices...\n",
-            target_length,
+            args.length,
             dices
         );
     }
 
-    let (passphrase, rolls_history) = generate(target_length, dices, &word_list);
+    let (passphrase, rolls_history) = generate(args.length, dices, &word_list);
 
     let result = passphrase.join(" ");
-    if verbose {
+    if args.verbose {
         println!("Rolls: => {:?}", rolls_history);
         println!("Passphrase => {}", result);
     } else {

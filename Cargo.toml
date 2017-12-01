@@ -5,4 +5,5 @@ authors = ["Davide Giovannini <giovannini.davide90@gmail.com>"]
 
 [dependencies]
 rand = "0.3"
-argparse = "*"
+structopt = "0.1.0"
+structopt-derive = "0.1.0"
