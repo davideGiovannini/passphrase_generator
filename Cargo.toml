@@ -1,9 +1,9 @@
 [package]
 name = "passphrase_generator"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Davide Giovannini <giovannini.davide90@gmail.com>"]
 
 [dependencies]
-rand = "0.3"
-structopt = "0.1.0"
-structopt-derive = "0.1.0"
+rand = "0.5"
+structopt = "0.2.10"
+structopt-derive = "0.2.10"

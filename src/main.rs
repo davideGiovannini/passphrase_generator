@@ -34,8 +34,7 @@ fn main() {
     if args.verbose {
         println!(
             "Generating passphrase of length {} using {} dices...\n",
-            args.length,
-            dices
+            args.length, dices
         );
     }
 
@@ -49,7 +48,6 @@ fn main() {
         println!("{}", result);
     }
 }
-
 
 fn generate(
     target_length: usize,
@@ -77,11 +75,9 @@ fn generate(
     (passphrase, rolls_history)
 }
 
-
-
 fn roll_dice<R: rand::Rng>(rng: &mut R) -> u8 {
-    use rand::distributions::{IndependentSample, Range};
-    Range::new(1, 7).ind_sample(rng)
+    use rand::distributions::{Distribution, Range};
+    Range::new(1, 7).sample(rng)
 }
 
 fn roll_n_dices<R: rand::Rng>(dices: usize, rng: &mut R) -> Vec<u8> {
@@ -99,8 +95,6 @@ fn key_from_dices(roll: Vec<u8>) -> u32 {
     result
 }
 
-
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -112,7 +106,6 @@ mod tests {
         assert_eq!(24, key_from_dices(vec![2, 4]));
         assert_eq!(23544564, key_from_dices(vec![2, 3, 5, 4, 4, 5, 6, 4]));
     }
-
 
     #[test]
     fn test_roll_n_dice() {
