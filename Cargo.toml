@@ -2,6 +2,7 @@
 name = "passphrase_generator"
 version = "0.1.1"
 authors = ["Davide Giovannini <giovannini.davide90@gmail.com>"]
+edition = "2018"
 
 [dependencies]
 rand = "0.5"

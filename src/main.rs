@@ -1,8 +1,6 @@
-extern crate rand;
+use rand;
 
-extern crate structopt;
-#[macro_use]
-extern crate structopt_derive;
+use structopt;
 
 mod default_word_lists;
 
@@ -24,7 +22,7 @@ struct Args {
     length: usize,
 }
 
-use default_word_lists::WordList;
+use crate::default_word_lists::WordList;
 
 fn main() {
     let args = Args::from_args();
