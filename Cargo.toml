@@ -5,6 +5,6 @@ authors = ["Davide Giovannini <giovannini.davide90@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-rand = "0.5"
-structopt = "0.2.10"
-structopt-derive = "0.2.10"
+rand = "0.6"
+structopt = "0.2"
+structopt-derive = "0.2"
