@@ -1,4 +1,3 @@
-#[cfg_attr(feature = "cargo-clippy", allow(unreadable_literal))]
 pub const WORD_LIST: [(u32, &str); 1296] = [
     (1111, "acid"),
     (1112, "acorn"),

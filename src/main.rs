@@ -1,13 +1,9 @@
-use rand;
-
-use structopt;
-
 mod default_word_lists;
 
 use structopt::StructOpt;
 
 #[derive(StructOpt, Debug)]
-#[structopt(raw(setting = "structopt::clap::AppSettings::ColoredHelp"))]
+#[structopt(setting = structopt::clap::AppSettings::ColoredHelp)]
 struct Args {
     /// Word list to use (one of [long, short, shortest])
     #[structopt(short = "w", long = "wordlist", default_value = "long")]
@@ -52,8 +48,7 @@ fn generate(
     dices: usize,
     word_list: &[(u32, &'static str)],
 ) -> (Vec<&'static str>, Vec<u32>) {
-    let mut os_rng =
-        rand::rngs::OsRng::new().expect("Could not create secure random number generator");
+    let mut os_rng = rand::rngs::OsRng;
 
     let mut passphrase = Vec::with_capacity(target_length);
     let mut rolls_history = Vec::with_capacity(target_length);
@@ -74,7 +69,7 @@ fn generate(
 }
 
 fn roll_dice<R: rand::Rng>(rng: &mut R) -> u8 {
-    rng.gen_range(1,7)
+    rng.gen_range(1..7)
 }
 
 fn roll_n_dices<R: rand::Rng>(dices: usize, rng: &mut R) -> Vec<u8> {
@@ -106,8 +101,7 @@ mod tests {
 
     #[test]
     fn test_roll_n_dice() {
-        let mut os_rng =
-            rand::rngs::OsRng::new().expect("Could not create secure random number generator");
+        let mut os_rng = rand::rngs::OsRng;
 
         for i in 1..10 {
             assert_eq!(i, roll_n_dices(i, &mut os_rng).len())
